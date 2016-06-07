@@ -1,18 +1,146 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="css/theme/white.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- <link rel="stylesheet" href="css/theme/white.css"> -->
+
+        <link rel="stylesheet" href="lib/css/zenburn.css">
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>Slide 1</section>
-                <section>Slide 2</section>
+                <section>
+                    <h2>ODSC 2016</h2>
+                    <h3>May 20 - 22</h3>
+                    <img data-src="images/IMG_4796.JPG" class="stretch">
+                </section>
+                <section>
+                    <section>
+                        <img data-src="images/julia.png">
+                        <p>A high-level, high-performance dynamic programming language</p>
+                    </section>
+                    <section>
+                        It promises the ease of use of a dynamic language like Python while still achieving speeds near those of a compiled language like C
+                    </section>
+                    <section>
+                        <h2>Benchmark</h2>
+                        <img data-src="images/julia_performance_table.png">
+                    </section>
+                    <section>
+                        <h2>Benchmark graph</h2>
+                        <img data-src="images/julia_performance_graph.png">
+                    </section>
+                    <section>
+                        <h2>iJulia Notebook</h2>
+                        <img data-src="images/ijulia.png">
+                    </section>
+                    <section>
+                        <h2>Gadfly</h2>
+                        <img data-src="images/gadfly-demo.png">
+                    </section>
+                    <section>
+                        <h2>Relevant URLS</h2>
+                        <p><a href="http://julialang.org/">julialang.org</a></p>
+                        <p><a href="https://github.com/JuliaLang/julia">Julia on Github</a></p>
+                        <p><a href="http://www.shapeoperator.com/2015/11/02/optimizing-kakuro-in-julia/">Kakuro puzzle solver in Julia</p>
+                        <p><a href="https://github.com/timholy/ProfileView.jl">ProfileView.jl</a></p>
+                        <p><a href="http://dcjones.github.io/Gadfly.jl/">Gadfly.jl</a></p>
+                        <p><a href="https://twitter.com/stefankarpinski">Stefan Karpinski's twitter</a></p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Dask</h2>
+                        <p>A flexible parallel computing library for analytics</p>
+                    </section>
+                    <section>
+                        <p>* Dask supports parallel computing</p> 
+                        <p>* Internally it executes graphs of tasks with data dependencies</p>
+                    </section>
+                    <section>
+                        <img data-src="images/dask.jpg">
+                    </section>
+                    <section>
+                        <h2>Pandas vs. Dask dataframes</h2>
+                        <pre><code class="python" data-trim contenteditable>
+    import pandas as pd                     import dask.dataframe as dd
+    df = pd.read_csv('2015-01-01.csv')      df = dd.read_csv('2015-*-*.csv')
+    df.groupby(df.user_id).value.mean()     df.groupby(df.user_id).value.mean().compute()
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Normal programming vs Dask graphs</h2>
+                        <table>
+                            <!-- <tr>
+                                <td>bla</td>
+                                <td>bla2</td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <pre><code class="python" data-trim contenteditable>
+def inc(i):
+    return i + 1    
+
+def add(a, b):
+    return a + b
+
+x = 1
+y = inc(x)
+z = add(y, 10)
+                        </code></pre>
+                                </td>
+                                <td>
+                                <pre><code class="python" data-trim contenteditable>
+d = {'x': 1,
+     'y': (inc, 'x'),
+     'z': (add, 'y', 10)}
+
+from dask.threaded import get
+get(dsk, 'z')
+
+from dask.multiprocessing import get     
+get(dsk, 'z')
+                        </code></pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h2>Dask graphs</h2>
+                        <img data-src="images/dask_graphs.gif">
+                    </section>
+                    <section>
+                        <h2>Relevant URLS</h2>
+                        <p><a href="http://dask.pydata.org/en/latest/">Dask docs</a></p>
+                        <p><a href="https://github.com/dask/dask">Dask on Github</a></p>
+                        <p><a href="https://github.com/dask/dask-tutorial">Dask tutorial</a></p>
+                        <p><a href="https://twitter.com/mrocklin">Matthew Rocklin's twitter</a></p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2><a href="https://drive.google.com/file/d/0B4IapRTv9pJ1eWowSzJBNGh0aFU/view">Adaptive Deep Learning for Vision and Language</a></h2>
+                    </section>
+                </section>
             </div>
         </div>
+        <script src="lib/js/head.min.js"></script>
         <script src="js/reveal.js"></script>
         <script>
-            Reveal.initialize();
+        Reveal.initialize({
+            width: 1200,
+            height: 700,
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            dependencies: [
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }, 
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            ]
+        });
         </script>
     </body>
 </html>
